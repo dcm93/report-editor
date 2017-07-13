@@ -1,0 +1,38 @@
+#header{
+    margin-bottom:2%; 
+    margin-top:2%;
+}
+#boundless_banner{
+    margin-bottom: 5%;
+}
+
+#checkboxes{
+margin-bottom:4%; 
+width:75%; 
+padding-top:1%; 
+padding-left:2%; 
+padding-bottom:1%;
+}
+
+.upload-btn {
+  color: #ffffff;
+  background-color: #F89406;
+  border: none;
+}
+
+.upload-btn:hover,
+.upload-btn:focus,
+.upload-btn:active,
+.upload-btn.active {
+  color: #ffffff;
+  background-color: #FA8900;
+  border: none;
+}
+
+#upload-input {
+  display: none;
+}
+
+.form-border {
+    border:thin black solid;
+}

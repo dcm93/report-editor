@@ -1,0 +1,27 @@
+{
+  "name": "report-editor",
+  "version": "1.0.0",
+  "description": "A custom-built report editor for the UW OAG",
+  "main": "app.js",
+  "dependencies": {
+    "express": "^4.15.3",
+    "formidable": "^1.1.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dcm93/report-editor.git"
+  },
+  "keywords": [
+    "npm"
+  ],
+  "author": "Domenica Mata Rodriguez <dcm93@uw.edu>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dcm93/report-editor/issues"
+  },
+  "homepage": "https://github.com/dcm93/report-editor#readme"
+}

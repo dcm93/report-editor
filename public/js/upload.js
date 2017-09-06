@@ -14,6 +14,10 @@ $(document).ready(function () {
         $('#upload-bar').width('0%');
     });
 
+    if($('#prog-bar').text('Done')){
+        $('#prog-bar').text('');
+    }
+
     //TO-DO
     //a controller for when the node process is going through.
 
@@ -27,14 +31,14 @@ $(document).ready(function () {
                 reports.push(selected[i].value);
             }
             if (files.length !== reports.length) {
-                if ($('#error-container').has('.alert-danger')){
+                if ($('#error-container').has('.alert-danger')) {
                     $('.alert-danger').remove();
                 }
 
                 if ($('#upload-bar-container').has('#prog-bar')) {
                     $('#prog-bar').remove();
                 }
-                
+
                 if (files.length > reports.length) {
                     $('#error-container').append("<div class=\"alert alert-danger\" role=\"alert\"><strong>ERROR!</strong> Number of reports selected does not match number of reports provided. Please <strong>check your selection in section 1)</strong> and try again.</div>");
                     $('html, body').animate({
@@ -56,9 +60,52 @@ $(document).ready(function () {
                 $('#upload-bar-container').append("<div class=\"progress\"><div class=\"progress-bar\" role=\"progressbar\" aria-valuenow=\"60\" aria-valuemin=\"0\" aria-valuemax=\"100\" style=\"width: 60%;\" id=\"prog-bar\">60%</div></div>");
             }
             // One or more files selected, process the file upload
+            var formData = new FormData();
+            for (var i = 0; i < files.length; i++) {
+                var file = files[i];
+                formData.append('uploads[]', file, file.name);
+            }
+
+            $.ajax({
+                url: '/upload',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data, textStatus, jqXHR) {
+                    console.log('upload succesful!');
+                    console.log(data);
+                    
+                },
+                complete:function(data){
+                    if (typeof data.redirect == 'string'){
+                        console.log('should redirect');
+                        window.location = data.redirect;
+                    }
+                    console.log('finished uploading!');
+                },
+
+                xhr: function () {
+                    var xhr = new XMLHttpRequest();
+
+                    //listen to progress event
+                    xhr.upload.addEventListener('progress', function (evt) {
+                        if (evt.lengthComputable) {
+                            var percentComplete = evt.loaded / evt.total;
+                            percentComplete = parseInt(percentComplete * 100);
+                            $('#prog-bar').text(percentComplete + '%');
+                            $('#prog-bar').width(percentComplete + '%');
+
+                            if (percentComplete === 100) {
+                                $('#prog-bar').html('Done');
+                            }
+                        }
+
+                    }, false);
+                    return xhr;
+                }
+            });
         }
 
     });
-
-
-})
+});
